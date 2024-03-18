@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:55 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/13 17:44:59 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/17 20:56:11 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	unsigned char	c_;
 	unsigned char	*s_;
 
-	c_ = (unsigned char) c;
-	s_ = (unsigned char *) s;
+	c_ = (unsigned char)c;
+	s_ = (unsigned char *)s;
 	if (s == NULL)
 		return (NULL);
 	if (c_ == '\0')
@@ -36,27 +36,76 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strdup(const char *s1)
+size_t	ft_strlcpy(char *restrict dst, const char *restrict src, size_t dstsize)
 {
-	int		len;
-	int		i;
-	char	*copie;
+	size_t	len;
+	size_t	i;
 
-	if (!s1)
-		return (0);
 	len = 0;
-	i = 0;
-	while (s1[len])
-		len++;
-	copie = malloc(sizeof(char) * (len + 1));
-	if (!copie)
+	len = ft_strlen(src);
+	if (!src)
 		return (0);
-	while (i < len)
+	i = 0;
+	while (*src != '\0' && (i + 1 < dstsize))
 	{
-		copie[i] = s1[i];
+		*dst++ = *src++;
 		i++;
 	}
-	copie[i] = '\0';
-	return (copie);
+	if (dstsize > 0)
+	{
+		*dst = '\0';
+	}
+	return (len);
 }
 
+size_t	ft_strlcat(char *restrict dst, const char *restrict src, size_t dstsize)
+{
+	size_t	src_len;
+	size_t	dst_len;
+	size_t	i;
+
+	if (!src)
+		return (0);
+	src_len = ft_strlen(src);
+	dst_len = ft_strlen(dst);
+	if (dstsize == 0)
+		return (src_len);
+	i = 0;
+	while (dst[i])
+		i++;
+	while (*src != '\0' && (i < dstsize - 1))
+	{
+		dst[i] = *src;
+		i++;
+		src++;
+	}
+	if (dstsize > 0)
+		dst[i] = '\0';
+	if (dstsize < i)
+		return (dstsize + src_len);
+	return (src_len + dst_len);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*copie;
+
+	copie = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!copie)
+		return (0);
+	ft_strlcpy(copie, s1, (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	ft_strlcat(copie, s2, (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	return (copie);
+}
