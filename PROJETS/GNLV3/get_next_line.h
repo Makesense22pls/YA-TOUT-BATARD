@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:59 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/26 19:50:16 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:28:02 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const	char *s);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char	*s1, char	*s2);
-char 	*read_fd(int fd, char *keep_line, char **buffer_clean);
+char 	*read_fd(int fd, char *keep_line);
 char	*get_that_line(char *stash);
 char	*ft_strtrim(char	*s/*, char const	*set*/);
 // int		ft_sameoupas(char const c, char const *set);

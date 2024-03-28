@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:51 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/26 23:42:32 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:48:56 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ char	*get_that_line(char *keep_line)
 	size_t i;
 	char *line_clean;
 
+	line_clean = NULL;
 	i = 0;
 	if (!keep_line)
 		return (NULL);
@@ -136,24 +137,29 @@ char	*get_that_line(char *keep_line)
 	return (line_clean);
 }
 
-char 	*read_fd(int fd, char *keep_line, char **buffer_clean)
+char 	*read_fd(int fd, char *keep_line)
 {
 	char buffer[BUFFER_SIZE + 1];
 	size_t check_read;
-	// size_t len;
+	// size_t count;
+	// count = 0;
 
 	check_read = read(fd, buffer, BUFFER_SIZE);
+	if (check_read <= 0)
+		return (NULL);
+	// if (buffer[0] == '\0')
+	// 	return (NULL);
 	while (check_read > 0)
 	{	
 		buffer[check_read] = '\0';
 		if (!keep_line)
-			keep_line = ft_strdup(buffer);
+			{
+				keep_line = ft_strdup(buffer);
+			}
 		else
 			keep_line = ft_strjoin(keep_line, buffer);
 		if (ft_strchr(keep_line, '\n') != 0)
 		{
-			*buffer_clean = ft_strchr(keep_line, '\n');
-			// printf("ICICICICICIIIC :%s ",*buffer_clean);
 			break;
 		}
 		check_read = read(fd, buffer, BUFFER_SIZE);
@@ -166,28 +172,29 @@ char	*get_next_line(int fd)
 	static char	*keep_line;
 	char		*line;
 	char 		*buffer_clean;
-	// char		*temp;
+	char 		*temp;
 	
 	buffer_clean = NULL;
 	line = NULL;
-	if (BUFFER_SIZE <= 0 || fd <= 0)
+	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	{
+		free(keep_line);
+		keep_line = NULL;
 		return (NULL);
+	}
 	else
 	{
-		keep_line = read_fd(fd, keep_line, &buffer_clean);
-		// printf(" BUFERCLE%s-----------------", buffer_clean);
-		// printf("\nbeforeline KL---- :%s", keep_line);
+		keep_line = read_fd(fd, keep_line);
 		if (!(ft_strchr(keep_line, '\n') != 0))
-				{
-					return (line = keep_line, keep_line = NULL , line);
-				}
+				return (line = keep_line, keep_line = NULL, line);
 		line = get_that_line(keep_line);
-		// printf("\nBEFOREl KL---- :%s", keep_line);
 		// temp = ft_strdup(ft_strchr(keep_line, '\n'));
 		// free(keep_line);
-		keep_line = ft_strchr(keep_line, '\n');
+		// keep_line = malloc(sizeof(char) * ft_strlen(ft_strchr(keep_line, '\n')) + 1 );
+		temp = ft_strdup(ft_strchr(keep_line, '\n'));
+		free(keep_line);
+		keep_line = temp;
 		// free(temp);
-		// printf("\nAFTER KL---- :%s", keep_line);
 		
 		// free(buffer_clean);
 	}
@@ -199,20 +206,27 @@ char	*get_next_line(int fd)
 // 	int fd;
 //  	char *str;
 //  	fd = open("file.txt", O_RDONLY);
-//  	// str = get_next_line(fd);
-// 	// printf("MAIN :%s",str);
-// 	// free(str);
-// 	// str = get_next_line(fd);
-// 	// printf("MAIN :%s",str);
-// 	// free(str);
-// 	str = get_next_line(fd);
-// 	while(str != NULL)
-// 	{
-// 		printf("main :%s",str);
-// 		// free(str);
-// 		str = get_next_line(fd);
-// 		// printf("MAIN:str:%p\n", str);
-// 	}
+//  	str = get_next_line(fd);
+// 	printf("MAIN :%s",str);
+// 	free(str);
+	// str = get_next_line(fd);
+	// printf("MAIN :%s",str);
+	// free(str);
+	// str = get_next_line(fd);
+	// printf("MAIN :%s",str);
+	// free(str);
+	// str = get_next_line(fd);
+	// printf("MAIN :%s",str);
+	// free(str);
+	// str = get_next_line(fd);
+	// free(str);
+	// while (str != NULL)
+	// {
+	// 	printf("MAIN:%s",str);
+	// 	free(str);
+	// 	str = get_next_line(fd);
+	// }
+	// printf("MAIN:%s\n",str);
 // }
 
 //  int main(void)

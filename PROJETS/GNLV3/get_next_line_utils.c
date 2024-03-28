@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:55 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/26 20:04:35 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:41:11 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strjoin(char	*s1, char	*s2)
 {
-	// free(s1);
 	char	*copie;
 
 	copie = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
@@ -134,6 +133,7 @@ char	*ft_strjoin(char	*s1, char	*s2)
 		return (0);
 	ft_strlcpy(copie, s1, (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	ft_strlcat(copie, s2, (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	free(s1);
 	return (copie);
 }
 
@@ -156,6 +156,7 @@ char	*ft_strdup(const char *s1)
 		i++;
 	}
 	result[i] = '\0';
+	// free(&s1);
 	return (result);
 }
 
