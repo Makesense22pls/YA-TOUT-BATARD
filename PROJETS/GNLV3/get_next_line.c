@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:51 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/28 15:48:56 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:33:51 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,17 +140,17 @@ char	*get_that_line(char *keep_line)
 char 	*read_fd(int fd, char *keep_line)
 {
 	char buffer[BUFFER_SIZE + 1];
-	size_t check_read;
+	int check_read;
 	// size_t count;
 	// count = 0;
 
 	check_read = read(fd, buffer, BUFFER_SIZE);
-	if (check_read <= 0)
+	if (check_read == -1)
 		return (NULL);
 	// if (buffer[0] == '\0')
 	// 	return (NULL);
 	while (check_read > 0)
-	{	
+	{
 		buffer[check_read] = '\0';
 		if (!keep_line)
 			{
@@ -178,7 +178,7 @@ char	*get_next_line(int fd)
 	line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
 	{
-		free(keep_line);
+		// free(keep_line);
 		keep_line = NULL;
 		return (NULL);
 	}
@@ -192,7 +192,7 @@ char	*get_next_line(int fd)
 		// free(keep_line);
 		// keep_line = malloc(sizeof(char) * ft_strlen(ft_strchr(keep_line, '\n')) + 1 );
 		temp = ft_strdup(ft_strchr(keep_line, '\n'));
-		free(keep_line);
+		// free(keep_line);
 		keep_line = temp;
 		// free(temp);
 		
@@ -201,20 +201,20 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int main()
-// {
-// 	int fd;
-//  	char *str;
-//  	fd = open("file.txt", O_RDONLY);
-//  	str = get_next_line(fd);
-// 	printf("MAIN :%s",str);
-// 	free(str);
-	// str = get_next_line(fd);
-	// printf("MAIN :%s",str);
-	// free(str);
-	// str = get_next_line(fd);
-	// printf("MAIN :%s",str);
-	// free(str);
+int main()
+{
+	int fd;
+ 	char *str;
+ 	fd = open("file.txt", O_RDONLY);
+ 	str = get_next_line(fd);
+	printf("MAIN :%s",str);
+	free(str);
+	str = get_next_line(fd);
+	printf("MAIN :%s",str);
+	free(str);
+	str = get_next_line(fd);
+	printf("MAIN :%s",str);
+	free(str);
 	// str = get_next_line(fd);
 	// printf("MAIN :%s",str);
 	// free(str);
@@ -227,7 +227,7 @@ char	*get_next_line(int fd)
 	// 	str = get_next_line(fd);
 	// }
 	// printf("MAIN:%s\n",str);
-// }
+}
 
 //  int main(void)
 //  {
