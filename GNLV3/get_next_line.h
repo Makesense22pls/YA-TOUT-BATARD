@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:59 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/30 03:37:13 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/30 04:23:26 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
+# define BUFFER_SIZE 1000000
 #endif
 
 typedef struct s_data
