@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:55 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/28 21:20:50 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:28:26 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,28 @@ char	*ft_strjoin(char	*s1, char	*s2)
 }
 
 char	*ft_strdup(const char *s1)
+{
+	char		*result;
+	size_t		length;
+	size_t		i;
+
+	if (s1 == NULL)
+		return(NULL);
+	length = ft_strlen (s1);
+	result = malloc(sizeof(char) * (length + 1));
+	if (!result)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	result[i] = '\0';
+	// free(s1);
+	return (result);
+}
+char	*ft_strdup2(const char *s1)
 {
 	char		*result;
 	size_t		length;

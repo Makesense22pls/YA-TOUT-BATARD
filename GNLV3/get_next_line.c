@@ -6,12 +6,36 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:51 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/29 20:38:29 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:58:29 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+
+char *ft_chelou(char *keep_line)
+{
+				int j;
+				int	i;
+				i = 0;
+				j = 0;
+				while (keep_line[i] != '\n')
+				{
+					i++;
+				}
+				i++;
+				j = i;
+				i = 0;
+				while(keep_line[j] != '\0')
+					{
+						keep_line[i] = keep_line[j];
+						j++;
+						i++;
+					}
+					keep_line[i] = '\0';
+				// printf("---------------%s", keep_line);
+		return (keep_line);
+}
 char	*get_that_line(char *keep_line)
 {
 	size_t i;
@@ -30,14 +54,14 @@ char	*get_that_line(char *keep_line)
 	return (line_clean);
 }
 
+
 char 	*read_fd(int fd, char *keep_line)
 {
 	char buffer[BUFFER_SIZE + 1];
 	int check_read;
 
+	check_read = 0;
 	check_read = read(fd, buffer, BUFFER_SIZE);
-	if (check_read == -1)
-		return (NULL);
 	while (check_read > 0)
 	{
 		buffer[check_read] = '\0';
@@ -49,6 +73,11 @@ char 	*read_fd(int fd, char *keep_line)
 			break;
 		check_read = read(fd, buffer, BUFFER_SIZE);
 	}
+	if (check_read == -1)	
+		{
+			free(keep_line);
+			return (NULL);
+		}
 	return (keep_line);
 }
 
@@ -69,93 +98,35 @@ char	*get_next_line(int fd)
 		if (!(ft_strchr(keep_line, '\n') != 0))
 			return (line = keep_line, keep_line = NULL, line);
 		line = get_that_line(keep_line);
-		if (keep_line[0] == '\n')
-			keep_line = NULL;
+		if (line[0] == '\n' && keep_line[1] == '\0')
+			{
+				if (keep_line != NULL)
+					free(keep_line);
+				keep_line = NULL;
+			}	
 		else
-			keep_line = ft_strdup(ft_strchr(keep_line, '\n'));
+			ft_chelou(keep_line);
+			// keep_line = ft_strdup(ft_strchr(keep_line, '\n'));
 	}
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd;
-//  	char *str;
-//  	fd = open("file.txt", O_RDONLY);
-//  	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("MAIN:%s",str);
-// 	free(str);
-// 	close (fd);
-// }
-
-// int main(int argc, char **argv)
-// {
-// 	int fd;
-// 	(void) argc;
-//  	fd = open(argv[1], O_RDONLY);
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	printf("%s", get_next_line(fd));
-// 	close (fd);
-// }
-
-//  int main(void)
+ 
+// int main(void)
 //  {
 //  	int fd;
 //  	char *str;
 //  	fd = open("file.txt", O_RDONLY);
 //  	str = get_next_line(fd);
-//  	printf("%s", str);
-//  	free(str);
-// 		free(str);
-// 		str = get_next_line(fd);
+// 	while (str != NULL)
+//  	{
 // 		printf("%s", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("%s", str);
-// 	free(str);
-// 	 str = get_next_line(fd);
-// 	 printf("%s", str);
-// 	 free(str);
-// 	 str = get_next_line(fd);
-// 	 printf("%s", str);
-// 	 free(str);
+//  		free(str);
+// 		str = get_next_line(fd);
+// 	}
+// 	if (str == NULL)
+// 		{
+// 			printf(" Its NULL :%s",str);
+// 			free(str);
+// 		}
+// 	close (fd);
 // }

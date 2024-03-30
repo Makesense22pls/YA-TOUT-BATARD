@@ -6,7 +6,7 @@
 /*   By: mafourni <mafourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:53:59 by mafourni          #+#    #+#             */
-/*   Updated: 2024/03/29 12:11:06 by mafourni         ###   ########.fr       */
+/*   Updated: 2024/03/30 03:37:13 by mafourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 7
+# define BUFFER_SIZE 100
 #endif
 
 typedef struct s_data
@@ -43,6 +43,7 @@ char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char	*s1, char	*s2);
 char 	*read_fd(int fd, char *keep_line);
 char	*get_that_line(char *stash);
+char	*ft_strdup2(const char *s1);
 char	*ft_strtrim(char	*s/*, char const	*set*/);
 // int		ft_sameoupas(char const c, char const *set);
 
